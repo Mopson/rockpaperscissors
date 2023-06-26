@@ -1,9 +1,48 @@
 <script>
-    function getComputerChoice(){
+    function getComputerChoice() {
         const compOptions = ["Rock", "Paper", "Scissors"];
-        let num = Math.floor(Math.random()*3);
+        let num = Math.floor(Math.random() * 3);
 
         return compOptions[num];
     }
-   
+
+    function playRound(playerSelection, computerSelection) {
+        let result = "";
+        //if selection is the same
+        if (playerSelection === computerSelection) {
+            console.log("The player chose "+ playerSelection, "and the computer chose " + computerSelection);
+            result = "Tie";
+        }
+        //if player picks paper
+        else if (playerSelection === 'PAPER') {
+            console.log("The player chose "+ playerSelection, "and the computer chose " + computerSelection);
+            if (computerSelection === 'ROCK') {
+                result = "Player wins.";
+            }
+            else result = "Computer wins.";
+        }
+        //if player picks scissors
+        else if (playerSelection === "SCISSORS") {
+            console.log("The player chose "+ playerSelection, "and the computer chose " + computerSelection);
+            if (computerSelection === "PAPER") {
+                result = "Player wins.";
+            }
+            else result = "Computer wins.";
+        }
+        //if player picks rock
+        else if (playerSelection === "ROCK") {
+            console.log("The player chose "+ playerSelection, "and the computer chose " + computerSelection);
+            if (computerSelection === "SCISSORS") {
+                result = "Player wins.";
+            }
+            else result = "Computer wins.";
+        }
+
+        return result;
+    }
+
+    const playerSelection = 'paper';
+    const computerSelection = getComputerChoice();
+    console.log(playRound(playerSelection.toUpperCase(), computerSelection.toUpperCase()));
+
 </script>
