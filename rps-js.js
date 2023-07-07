@@ -79,3 +79,22 @@ function game() {
     else console.log("After 5 rounds the computer has won with a score of " + computerScore + " to the player's score of " + playerScore);
     */
 }
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        let computerSelection = getComputerChoice();
+        let playerSelection = '';
+        if (button.id === "playerRockBtn") {
+            playerSelection = "rock";
+        };
+        if (button.id === "playerPaperBtn") {
+            playerSelection = "paper";
+        };
+        if (button.id === "playerScissorsBtn") {
+            playerSelection = "scissors";
+        };
+        let result = playRound(playerSelection.toUpperCase(), computerSelection.toUpperCase());
+        console.log(result);
+    });
+});
