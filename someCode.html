@@ -10,10 +10,34 @@
 </head>
 
 <body>
-<h1>This is a header!</h1>
-<button id="playerRockBtn"> <img src="images/playerRock.png" title="Player's rock"/></button>
-<button id="playerPaperBtn"> <img src="images/playerPaper.png" title="Player's paper"/></button>
-<button id="playerScissorsBtn"> <img src="images/playerScissors.png" title="Player's scissors"/></button>
+    <h1>Rock Paper Scissors</h1>
+
+    <div id="popResult">
+    </div>
+
+    <div id="buttonContainer">
+        <button id="playerRockBtn"> <img src="images/playerRock.png" title="Player's rock" /></button>
+        <button id="playerPaperBtn"> <img src="images/playerPaper.png" title="Player's paper" /></button>
+        <button id="playerScissorsBtn"> <img src="images/playerScissors.png" title="Player's scissors" /></button>
+    </div>
+
+    <a id="theChoice"></a>
+
+    <a id="roundResult">Pick your weapon</a>
+
+    <div id="score">
+        <a id="playerScore">0</a>
+        <a>-</a>
+        <a id="computerScore">0</a>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="theResults"></p>
+        </div>
+
+    </div>
 </body>
 
 </html>
