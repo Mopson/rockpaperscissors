@@ -1,3 +1,6 @@
+//const playerScore = document.getElementById("playerScore");
+//const computerScore = document.getElementById("computerScore");
+
 function getComputerChoice() {
     const compOptions = ["Rock", "Paper", "Scissors"];
     let num = Math.floor(Math.random() * 3);
@@ -5,41 +8,115 @@ function getComputerChoice() {
     return compOptions[num];
 }
 
+//keeps track of score, outside function so it isn't reset every time a round is played
+let pScore = 0;
+let cScore = 0;
+
 function playRound(playerSelection, computerSelection) {
     let result = "";
+
     //if selection is the same
     if (playerSelection === computerSelection) {
-        console.log("The player chose " + playerSelection, "and the computer chose " + computerSelection);
-        result = "Tie";
+        //console.log("The player chose " + playerSelection, "and the computer chose " + computerSelection);
+        document.getElementById('theChoice').textContent = "You chose " + playerSelection + " and the computer chose " + computerSelection;
+        result = "It's a tie. Go again.";
     }
     //if player picks paper
     else if (playerSelection === 'PAPER') {
-        console.log("The player chose " + playerSelection, "and the computer chose " + computerSelection);
+        document.getElementById('theChoice').textContent = "You chose " + playerSelection + " and the computer chose " + computerSelection;
         if (computerSelection === 'ROCK') {
-            result = "Player wins.";
+            result = "You win.";
         }
-        else result = "Computer wins.";
+        else result = "The computer wins.";
     }
     //if player picks scissors
     else if (playerSelection === "SCISSORS") {
-        console.log("The player chose " + playerSelection, "and the computer chose " + computerSelection);
+        document.getElementById('theChoice').textContent = "You chose " + playerSelection + " and the computer chose " + computerSelection;
         if (computerSelection === "PAPER") {
-            result = "Player wins.";
+            result = "You win.";
         }
-        else result = "Computer wins.";
+        else result = "The computer wins.";
     }
     //if player picks rock
     else if (playerSelection === "ROCK") {
-        console.log("The player chose " + playerSelection, "and the computer chose " + computerSelection);
+        document.getElementById('theChoice').textContent = "You chose " + playerSelection + " and the computer chose " + computerSelection;
         if (computerSelection === "SCISSORS") {
-            result = "Player wins.";
+            result = "You win.";
         }
-        else result = "Computer wins.";
+        else result = "The computer wins.";
+    }
+
+    //changes roundResult <a> when a round has been played, displays the winner
+    document.getElementById('roundResult').textContent = result;
+
+    //keep track of score
+    if (result === "You win.") {
+        document.getElementById('playerScore').textContent++;
+        pScore++;
+    }
+    else if (result === "The computer wins.") {
+        document.getElementById('computerScore').textContent++;
+        cScore++;
+    }
+    //first player to 5 wins the match, winning displays overlay modal, and then scores are reset to 0
+    if (pScore == 5) {
+        displayResultsModal("Congratulations! You have won the match!");
+        resetScores();
+    }
+    else if (cScore == 5) {
+        displayResultsModal("The computer has won the match! Unlucky.");
+        resetScores();
     }
 
     return result;
 }
 
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        let computerSelection = getComputerChoice();
+        let playerSelection = '';
+        if (button.id === "playerRockBtn") {
+            playerSelection = "rock";
+        };
+        if (button.id === "playerPaperBtn") {
+            playerSelection = "paper";
+        };
+        if (button.id === "playerScissorsBtn") {
+            playerSelection = "scissors";
+        };
+        let result = playRound(playerSelection.toUpperCase(), computerSelection.toUpperCase());
+    });
+});
+
+function displayResultsModal(result) {
+    let modal = document.getElementById("myModal");
+    let span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    document.getElementById('theResults').textContent = result;
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
+//resets DOM manipulated values
+function resetScores() {
+    document.getElementById('theChoice').textContent = '';
+    document.getElementById('roundResult').textContent = "Choose your weapon";
+    document.getElementById('playerScore').textContent = 0;
+    document.getElementById('computerScore').textContent = 0;
+    pScore = 0;
+    cScore = 0;
+}
+
+//This portion of code was used for previous exercises
 function game() {
 
     //initialize player and computer scores to 0
@@ -62,11 +139,11 @@ function game() {
         if (result === "Tie") {
             console.log("Go again!");
         }
-        else if (result === "Player wins.") {
+        else if (result === "You win.") {
             playerScore++;
             round++;
         }
-        else if (result === "Computer wins.") {
+        else if (result === "The computer wins.") {
             computerScore++;
             round++;
         }
@@ -79,22 +156,3 @@ function game() {
     else console.log("After 5 rounds the computer has won with a score of " + computerScore + " to the player's score of " + playerScore);
     */
 }
-
-const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        let computerSelection = getComputerChoice();
-        let playerSelection = '';
-        if (button.id === "playerRockBtn") {
-            playerSelection = "rock";
-        };
-        if (button.id === "playerPaperBtn") {
-            playerSelection = "paper";
-        };
-        if (button.id === "playerScissorsBtn") {
-            playerSelection = "scissors";
-        };
-        let result = playRound(playerSelection.toUpperCase(), computerSelection.toUpperCase());
-        console.log(result);
-    });
-});
